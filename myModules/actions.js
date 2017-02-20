@@ -22,40 +22,28 @@ class Actions{
         //Dispatch Actions by name in querystring
         return new Promise((resolve, reject) => {
 
-            if(queryStringObj.name === 'getUsers')
-            {
-               db.query("call getUsers(?)", this.queryToParams(queryStringObj)).then(result => {
-                   return resolve(result);
-               }).catch(err => {
-                   return reject(err);
-               });
+            if (queryStringObj.name === 'getCategories') {
 
-            }
-            else if (queryStringObj.name === 'checkLogin') {
-
-              //Check Login by username and password
-              db.query("call checkLogin(?, ?)", this.queryToParams(queryStringObj)).then(result => {
-                  return resolve(result);
-              });
-
-            }
-            else if (queryStringObj.name === 'getCategories') {
-
-                //Check Login by username and password
+                //Get all categories
                 db.query("call getCategories(?)", this.queryToParams(queryStringObj)).then(result => {
 
                   //build multidimensional array from db table
                   let categories = Utils.generateTreeViewArray(result[0], "id", "parent_categories_id");
 
-
-
                   return resolve(categories);
+                });
+            } else if (queryStringObj.name === 'getItems') {
+
+                //Get all items for the Category
+                db.query("call getItems(?)", this.queryToParams(queryStringObj)).then(result => {
+
+                  return resolve(result[0]);
                 });
 
             } else {
                 // ERROR!!!!
                 console.log("ERROR IN ACTIONS!");
-                return reject(new Error('No Action defined in QueryString!'));
+                return reject(new Error('No valid Action defined in QueryString!'));
             }
 
         });

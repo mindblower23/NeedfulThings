@@ -4,19 +4,31 @@ import serverActions from "./ServerActions";
 
 class NTStore {
   @observable categories = [];
+  @observable items = [];
+
+  @action initStartUp(){
+    this.getCategories();
+    this.getItems(0);
+  }
 
   @action getCategories(){
-    serverActions.getCategories((data) => {
+    serverActions.act("getCategories", (data) => {
       console.table(data);
-
+      /*
       let newCats = [];
-
       data.forEach((row) => {
         newCats.push(new Category(row.id, row.name, row.parent_categories_id, row.childs));
       })
       this.categories.replace(newCats);
-
+      */
+      this.categories.replace(data);
     })
+  }
+
+  @action getItems(categoryId){
+    serverActions.act("getItems", (data) => {
+      this.items.replace(data);
+    }, {_categories_id: categoryId});
   }
 }
 
