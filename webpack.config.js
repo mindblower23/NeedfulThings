@@ -1,10 +1,10 @@
 var path = require('path');
 
 module.exports = {
-  entry: {demo: ['whatwg-fetch', './client/src/index.js']},
+  entry: {demo: ['whatwg-fetch', './src/index.js']},
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'client/dist')
+    path: path.resolve(__dirname, 'dist')
   },
   module: {
     loaders: [
@@ -17,5 +17,9 @@ module.exports = {
         loader: "style-loader!css-loader"
       }
     ]
+  },
+  devServer: {
+    contentBase: path.resolve(__dirname, 'dist'),
+    inline: true
   }
 };

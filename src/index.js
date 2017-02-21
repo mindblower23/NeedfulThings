@@ -9,6 +9,6 @@ import "./css/NTFinder.css";
 
 
 ReactDOM.render(
-    <NTFinder store={store}/>,
-    document.getElementById("me")
-  );
+  <NTFinder store={store}/>,
+  document.getElementById("me")
+);

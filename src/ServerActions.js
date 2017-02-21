@@ -6,12 +6,12 @@ class ServerActions {
 
     switch (actionName) {
       case "getCategories":
-        fetch("../action?name=getCategories&_users_id=1")
+        fetch("http://localhost:3000/action?name=getCategories&_users_id=1")
           .then(response => response.json())
           .then(data => callback(data));
         break;
       case "getItems":
-      fetch("../action?name=getItems&_categories_id=" + params.categories_id)
+      fetch("http://localhost:3000/action?name=getItems&_categories_id=" + params.categories_id)
         .then(response => response.json())
         .then(data => callback(data));
         break;
