@@ -27,6 +27,12 @@ class Actions{
                 //Get all categories
                 db.query("call getCategories(?)", this.queryToParams(queryStringObj)).then(result => {
 
+                  //add isActive and isCollapsed with default value false to the Category Object
+                  result[0].forEach(item => {
+                    item.isActive = false;
+                    item.isCollapsed = false;
+                  });
+
                   //build multidimensional array from db table
                   let categories = Utils.generateTreeViewArray(result[0], "id", "parent_categories_id");
 

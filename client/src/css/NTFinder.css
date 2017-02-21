@@ -30,6 +30,12 @@ body{
   user-select: none;
   white-space: nowrap;
 }
+.NTTreeViewNodeItem{
+  cursor: pointer;
+}
+.NTTreeViewNodeItem.active{
+  font-weight: bold;
+}
 .NTTreeViewNodeCollapsedBox{
   display: inline-block;
   width: 20px;

@@ -7,7 +7,7 @@ export default class NTListView extends React.Component {
 
   render(){
 
-    console.log("NTListView: " + JSON.stringify(this.props.store));
+    console.log("NTListView: RENDER!!!!");
 
     let rows = this.props.store.map(item => (
       <NTListViewItem key={item.id} store={item} />
