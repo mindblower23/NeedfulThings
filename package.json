@@ -16,8 +16,7 @@
     "react-dom": "^15.4.2"
   },
   "scripts": {
-    "start": "node main.js",
-    "webstart": "./node_modules/.bin/webpack-dev-server"
+    "start": "./node_modules/.bin/webpack-dev-server"
   },
   "devDependencies": {
     "babel-core": "^6.23.1",

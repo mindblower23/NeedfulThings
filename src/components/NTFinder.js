@@ -1,5 +1,8 @@
 import React from "react";
 import Devtools from "mobx-react-devtools"
+
+import "../css/NTFinder.css";
+
 import NTTreeView from "./NTTreeView"
 import NTListView from "./NTListView"
 
