@@ -17,7 +17,7 @@ export default class NTListView extends React.Component {
 
     if (this.props.store.selectedCategory.children){
       rows = this.props.store.selectedCategory.children.map(item => (
-        <NTListViewItem key={item.id} store={item} itemType="category" onCategorySelect={this.props.onCategorySelect} />
+        <NTListViewItem key={item.id} store={item} itemType="category" onSelectCategory={this.props.onSelectCategory} />
       ));
     }
 
@@ -32,7 +32,6 @@ export default class NTListView extends React.Component {
 
     return(
       <div className="NTListView">
-
         {rows}
         {items}
       </div>

@@ -1,19 +1,19 @@
-.NTTreeViewNode{
+.tv-node {
   user-select: none;
   white-space: nowrap;
 }
-.NTTreeViewNodeItem{
+.tv-node-item {
   cursor: pointer;
 }
-.NTTreeViewNodeItem.active{
+.tv-node-item.active {
   font-weight: bold;
 }
-.NTTreeViewNodeCollapsedBox{
+.tv-node-collapsed {
   display: inline-block;
   width: 20px;
   height: 20px;
 }
-.tv-iconbox{
+.tv-iconbox {
   width: 24px;
   height: 24px;
   margin-right: 6px;
@@ -24,7 +24,3 @@
   d: path("M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z");
 }
 */
-.NTTreeViewNodeItem{
-  display: flex;
-  align-items: center;
-}

@@ -11,7 +11,7 @@ export default class NTPathView extends React.Component {
 
     let itemCount = this.props.store.length;
     let items = this.props.store.map((item, i) => (
-      <NTPathViewItem key={item.id} store={item} >
+      <NTPathViewItem key={item.id} store={item} onSelectCategory={this.props.onSelectCategory} >
       {(i !== itemCount - 1)
           ? <span className="pv-item-divider">></span>
           : <span></span>

@@ -1,11 +1,3 @@
-.NTTreeView{
-  flex-basis: 200px;
-  overflow-x: hidden;
-  background-color: #e0e0e0;
-}
-.NTListViewItem{
-  display: flex;
-  align-items: center;
-  height: 30px;
-  border-bottom: solid #909090 1px;
+.tv-container {
+
 }

@@ -11,7 +11,7 @@ export default class NTListViewItem extends React.Component {
   render(){
 
     return(
-      <div className="NTListViewItem" onDoubleClick={() => {this.props.onCategorySelect(this.props.store)}}>
+      <div className="lv-item" onDoubleClick={() => {this.props.onSelectCategory(this.props.store)}}>
         <span className="lv-iconbox">
           {IconStore[this.props.itemType]}
         </span>

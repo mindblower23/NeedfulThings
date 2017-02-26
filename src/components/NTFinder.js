@@ -20,7 +20,7 @@ export default class NTFinder extends React.Component {
     this.props.store.initStartUp();
   }
 
-  selectItem(item){
+  selectCategory(item){
     console.log("selectItem: " + item.id);
     this.props.store.selectCategory(item);
   }
@@ -28,12 +28,16 @@ export default class NTFinder extends React.Component {
   render(){
 
     return(
-      <div className="NTFinderContainer">
+      <div className="fi-container">
         <Devtools />
-        <NTPathView store={this.props.store.categoriesPath} />
-        <NTTreeView onSelectItem={this.selectItem.bind(this)} store={this.props.store.categories} />
-        <div className="NTFinderDivider"></div>
-        <NTListView onCategorySelect={this.selectItem.bind(this)} store={this.props.store.listViewStore} />
+        <div className="fi-treeview">
+          <NTTreeView onSelectCategory={this.selectCategory.bind(this)} store={this.props.store.categories} />
+        </div>
+        <div className="fi-divider"></div>
+        <div className="fi-listview">
+          <NTPathView onSelectCategory={this.selectCategory.bind(this)} store={this.props.store.categoriesPath} />
+          <NTListView onSelectCategory={this.selectCategory.bind(this)} store={this.props.store.listViewStore} />
+        </div>
       </div>
     );
 

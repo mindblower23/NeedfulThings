@@ -1,20 +1,25 @@
-
-body{
+body {
   font-family: proxima-nova,"Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;
   color: #303030;
 }
-.NTFinderContainer{
+.fi-container {
   display: flex;
   flex-flow: row;
   flex-wrap: wrap;
 }
-.NTFinderDivider{
+.fi-divider {
   flex-basis: 6px;
   background: #606060;
 }
-
-.NTListView{
+.fi-treeview {
+  flex-basis: 200px;
+  overflow-x: hidden;
+  background-color: #e0e0e0;
+}
+.fi-listview {
   flex: 1;
+  display: flex;
+  flex-flow: column;
 }
 
 .icon-folder{

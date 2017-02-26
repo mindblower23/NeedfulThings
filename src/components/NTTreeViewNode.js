@@ -13,10 +13,6 @@ export default class NTTreeViewNode extends React.Component {
     this.props.store.isCollapsed = !this.props.store.isCollapsed;
   }
 
-  selectItem(){
-    this.props.onSelectItem(this.props.store);
-  }
-
   render() {
     console.log("Node rendered: " + this.props.store.name);
 
@@ -28,7 +24,7 @@ export default class NTTreeViewNode extends React.Component {
     let subNodes = [];
     if(this.props.store.isCollapsed){
       subNodes = this.props.store.children.map(item => (
-        <NTTreeViewNode onSelectItem={this.props.onSelectItem} key={item.id} store={item} />
+        <NTTreeViewNode onSelectCategory={this.props.onSelectCategory} key={item.id} store={item} />
       ));
     }
 
@@ -36,15 +32,15 @@ export default class NTTreeViewNode extends React.Component {
 
 
     return (
-      <div className="NTTreeViewNode">
-        <div className={"NTTreeViewNodeItem " + (this.props.store.isActive ? "active" : "")}>
-          <span className="NTTreeViewNodeCollapsedBox">
+      <div className="tv-node">
+        <div className={"tv-node-item " + (this.props.store.isActive ? "active" : "")}>
+          <span className="tv-node-collapsed">
             {collapser}
           </span>
           <span className="tv-iconbox">
             {IconStore["category"]}
           </span>
-          <span onClick={this.selectItem.bind(this)}>
+          <span onClick={() => this.props.onSelectCategory(this.props.store)}>
             {this.props.store.name}
           </span>
         </div>

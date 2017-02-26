@@ -1,6 +1,12 @@
-.lv-iconbox{
+.lv-iconbox {
   width: 24px;
   height: 24px;
   margin-right: 6px;
   margin-left: 6px;
+}
+.lv-item {
+  display: flex;
+  align-items: center;
+  height: 30px;
+  border-bottom: solid #909090 1px;
 }

@@ -8,20 +8,16 @@ import NTTreeViewNode from "./NTTreeViewNode"
 @observer
 export default class NTTreeView extends React.Component {
 
-  selectItem(itemId){
-    this.props.onSelectItem(itemId);
-  }
-
   render() {
     console.log("NTTreeView: RENDER!");
     //console.log("NTTreeView Store: " + JSON.stringify(this.props.store));
 
     let tree = this.props.store.map(item => (
-      <NTTreeViewNode onSelectItem={this.props.onSelectItem} key={item.id} collapsed={item.isCollapsed} store={item} />
+      <NTTreeViewNode onSelectCategory={this.props.onSelectCategory} key={item.id} collapsed={item.isCollapsed} store={item} />
     ));
 
     return (
-      <div className="NTTreeView">
+      <div className="tv-container">
         {tree}
       </div>
     );
