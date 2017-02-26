@@ -2,7 +2,7 @@
 
 class ServerActions {
 
-  act(actionName, callback, params = {}){
+  act(actionName, params = {}, callback){
 
     switch (actionName) {
       case "getCategories":
@@ -10,8 +10,8 @@ class ServerActions {
           .then(response => response.json())
           .then(data => callback(data));
         break;
-      case "getItems":
-      fetch("http://localhost:3000/action?name=getItems&_categories_id=" + params.categories_id)
+      case "getThings":
+      fetch("http://localhost:3000/action?name=getThings&_categories_id=" + params.categories_id)
         .then(response => response.json())
         .then(data => callback(data));
         break;

@@ -5,19 +5,24 @@ import "../css/NTFinder.css";
 
 import NTTreeView from "./NTTreeView"
 import NTListView from "./NTListView"
+import NTPathView from "./NTPathView";
 
 import Killme from "./Killme";
 
 
 export default class NTFinder extends React.Component {
 
+  constructor(){
+    super();
+  }
+
   componentDidMount() {
     this.props.store.initStartUp();
   }
 
-  selectItem(itemId){
-    console.log("selectItem: " + itemId);
-    this.props.store.getItems(itemId);
+  selectItem(item){
+    console.log("selectItem: " + item.id);
+    this.props.store.selectCategory(item);
   }
 
   render(){
@@ -25,9 +30,10 @@ export default class NTFinder extends React.Component {
     return(
       <div className="NTFinderContainer">
         <Devtools />
+        <NTPathView store={this.props.store.categoriesPath} />
         <NTTreeView onSelectItem={this.selectItem.bind(this)} store={this.props.store.categories} />
         <div className="NTFinderDivider"></div>
-        <NTListView store={this.props.store.items} />
+        <NTListView onCategorySelect={this.selectItem.bind(this)} store={this.props.store.listViewStore} />
       </div>
     );
 

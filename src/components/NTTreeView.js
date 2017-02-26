@@ -17,7 +17,7 @@ export default class NTTreeView extends React.Component {
     //console.log("NTTreeView Store: " + JSON.stringify(this.props.store));
 
     let tree = this.props.store.map(item => (
-      <NTTreeViewNode onSelectItem={this.props.onSelectItem} key={item.id} collapsed={false} store={item} />
+      <NTTreeViewNode onSelectItem={this.props.onSelectItem} key={item.id} collapsed={item.isCollapsed} store={item} />
     ));
 
     return (

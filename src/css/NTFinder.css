@@ -6,6 +6,7 @@ body{
 .NTFinderContainer{
   display: flex;
   flex-flow: row;
+  flex-wrap: wrap;
 }
 .NTFinderDivider{
   flex-basis: 6px;
@@ -14,4 +15,19 @@ body{
 
 .NTListView{
   flex: 1;
+}
+
+.icon-folder{
+  view-box: 0 0 80 80;
+  width: 20px;
+  height: 20px;
+  fill: #606060;
+  stroke: 1px;
+}
+.icon-thing{
+  view-box: 0 0 80 80;
+  width: 20px;
+  height: 20px;
+  fill: #606060;
+  stroke: 1px;
 }

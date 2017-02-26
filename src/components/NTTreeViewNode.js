@@ -14,20 +14,20 @@ export default class NTTreeViewNode extends React.Component {
   }
 
   selectItem(){
-    this.props.onSelectItem(this.props.store.id);
+    this.props.onSelectItem(this.props.store);
   }
 
   render() {
     console.log("Node rendered: " + this.props.store.name);
 
     let collapser = null;
-    if (this.props.store.childs.length > 0){
+    if (this.props.store.children.length > 0){
       collapser = <NTTreeViewNodeCollapser isCollapsed={this.props.store.isCollapsed} onToggle={this.expandNode.bind(this)} />;
     }
 
     let subNodes = [];
     if(this.props.store.isCollapsed){
-      subNodes = this.props.store.childs.map(item => (
+      subNodes = this.props.store.children.map(item => (
         <NTTreeViewNode onSelectItem={this.props.onSelectItem} key={item.id} store={item} />
       ));
     }
@@ -41,10 +41,8 @@ export default class NTTreeViewNode extends React.Component {
           <span className="NTTreeViewNodeCollapsedBox">
             {collapser}
           </span>
-          <span className="iconBox">
-            <svg className="iconFolder" viewBox="0 0 24 24"  y="72">
-              {IconStore["folder"]}
-            </svg>
+          <span className="tv-iconbox">
+            {IconStore["category"]}
           </span>
           <span onClick={this.selectItem.bind(this)}>
             {this.props.store.name}

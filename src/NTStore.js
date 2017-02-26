@@ -4,39 +4,45 @@ import serverActions from "./ServerActions";
 
 class NTStore {
   @observable categories = [];
-  @observable items = [];
+  @observable listViewStore = {'selectedCategory': {}};
+  @observable categoriesPath = [];
 
   @action initStartUp(){
     this.getCategories();
-    this.getItems(0);
   }
 
   @action getCategories(){
-    serverActions.act("getCategories", (data) => {
+    serverActions.act("getCategories", null, (data) => {
       console.log("getCategories!");
-      /*
-      let newCats = [];
-      data.forEach((row) => {
-        newCats.push(new Category(row.id, row.name, row.parent_categories_id, row.childs));
-      })
-      this.categories.replace(newCats);
-      */
+      data[0].isCollapsed = true;
 
       this.categories.replace(data);
+      this.selectCategory(data[0]);
+
     })
   }
 
-  @action getItems(categoryId){
-    serverActions.act("getItems", (data) => {
-      console.log("getItems!");
-      this.items.replace(data);
+  @action selectCategory(categoryObject){
+    serverActions.act("getThings", {categories_id: categoryObject.id}, (data) => {
 
-      //let tempCategories = this.categories.peek();
+      categoryObject.things = data;
 
-      this.setCategoryActive(this.categories, categoryId);
-      //this.categories.replace(tempCategories);
+      let parentIdHistory = categoryObject.parentIdHistory.slice();
+      parentIdHistory.shift();
 
-    }, {categories_id: categoryId});
+      this.categoriesPath.replace([]);
+
+      this.setCollapsedParents(this.categories, parentIdHistory);
+
+      this.categoriesPath.push(categoryObject);
+
+      this.setCategoryActive(this.categories, categoryObject.id);
+
+      this.listViewStore.selectedCategory = categoryObject;
+
+      console.log("getThings-categoriesPath: " + JSON.stringify(this.categoriesPath));
+
+    });
   }
 
   setCategoryActive(categories, active_categoryId){
@@ -46,10 +52,26 @@ class NTStore {
       else if (item.isActive)
         item.isActive = false;
 
-      if(item.childs.length > 0)
-        this.setCategoryActive(item.childs, active_categoryId);
+      if(item.children.length > 0)
+        this.setCategoryActive(item.children, active_categoryId);
     });
   }
+
+  setCollapsedParents(categories, parentIdHistory){
+    console.log("parentHistory: " + JSON.stringify(parentIdHistory));
+
+    if(parentIdHistory.length > 0){
+      let currentCategory = categories.find((item) => item.id === parentIdHistory[0]);
+      currentCategory.isCollapsed = true;
+
+      //build categoriesPath
+      this.categoriesPath.push(currentCategory);
+
+      parentIdHistory.shift();
+      this.setCollapsedParents(currentCategory.children, parentIdHistory);
+    }
+  }
+
 }
 
 var store = window.store = new NTStore();
