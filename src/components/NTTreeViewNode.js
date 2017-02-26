@@ -37,10 +37,10 @@ export default class NTTreeViewNode extends React.Component {
           <span className="tv-node-collapsed">
             {collapser}
           </span>
-          <span className="tv-iconbox">
+          <span className="tv-iconbox" onClick={() => this.props.onSelectCategory(this.props.store)} onDoubleClick={this.expandNode.bind(this)}>
             {IconStore["category"]}
           </span>
-          <span onClick={() => this.props.onSelectCategory(this.props.store)}>
+          <span onClick={() => this.props.onSelectCategory(this.props.store)} onDoubleClick={this.expandNode.bind(this)}>
             {this.props.store.name}
           </span>
         </div>

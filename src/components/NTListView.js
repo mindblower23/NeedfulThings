@@ -1,6 +1,8 @@
 import React from "react";
 import { observer } from "mobx-react";
 
+import "../css/NTListView.css";
+
 import NTListViewItem from "./NTListViewItem";
 
 
@@ -31,7 +33,7 @@ export default class NTListView extends React.Component {
     //console.log("NTListView: " + JSON.stringify(rows));
 
     return(
-      <div className="NTListView">
+      <div className="lv-container">
         {rows}
         {items}
       </div>

@@ -1,1 +1,5 @@
-
+.lv-container {
+  flex-basis: 100%;
+  background-color: #e0e0e0;
+  user-select: none;
+}

@@ -31,6 +31,7 @@ export default class NTFinder extends React.Component {
       <div className="fi-container">
         <Devtools />
         <div className="fi-treeview">
+          <div className="fi-buttonbox"></div>
           <NTTreeView onSelectCategory={this.selectCategory.bind(this)} store={this.props.store.categories} />
         </div>
         <div className="fi-divider"></div>
