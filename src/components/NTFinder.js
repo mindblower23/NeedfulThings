@@ -25,6 +25,16 @@ export default class NTFinder extends React.Component {
     this.props.store.selectCategory(item);
   }
 
+  resizeTreeView(ev){
+    let treeView = document.querySelector(".fi-treeview");
+    document.body.onmousemove = (e) => {
+      treeView.style.flexBasis = e.pageX + "px";
+    }
+    document.body.onmouseup = (e) => {
+      document.body.onmousemove = null;
+    }
+  }
+
   render(){
 
     return(
@@ -34,7 +44,7 @@ export default class NTFinder extends React.Component {
           <div className="fi-buttonbox"></div>
           <NTTreeView onSelectCategory={this.selectCategory.bind(this)} store={this.props.store.categories} />
         </div>
-        <div className="fi-divider"></div>
+        <div className="fi-divider" onMouseDown={this.resizeTreeView}></div>
         <div className="fi-listview">
           <NTPathView onSelectCategory={this.selectCategory.bind(this)} store={this.props.store.categoriesPath} />
           <NTListView onSelectCategory={this.selectCategory.bind(this)} store={this.props.store.listViewStore} />

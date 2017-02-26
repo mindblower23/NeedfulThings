@@ -13,6 +13,8 @@ body {
 .fi-divider {
   flex-basis: 6px;
   background: #606060;
+  overflow-x: hidden;
+  cursor: col-resize;
 }
 .fi-treeview {
   flex-basis: 200px;
@@ -21,6 +23,8 @@ body {
   display: flex;
   flex-flow: column;
   overflow-x: hidden;
+  min-width: 150px;
+  max-width: 400px;
   background-color: #a0a0a0;
 }
 .fi-buttonbox {
@@ -31,6 +35,7 @@ body {
   flex: 1;
   display: flex;
   flex-flow: column;
+  overflow-x: hidden;
 }
 
 .icon-folder{
