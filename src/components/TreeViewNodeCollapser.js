@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class NTTreeViewNodeCollapser extends React.Component {
+export default class TreeViewNodeCollapser extends React.Component {
 
   render(){
 

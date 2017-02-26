@@ -1,16 +1,16 @@
 import React from "react";
 import Devtools from "mobx-react-devtools"
 
-import "../css/NTFinder.css";
+import "../css/Finder.css";
 
-import NTTreeView from "./NTTreeView"
-import NTListView from "./NTListView"
-import NTPathView from "./NTPathView";
+import TreeView from "./TreeView"
+import ListView from "./ListView"
+import PathView from "./PathView";
 
 import Killme from "./Killme";
 
 
-export default class NTFinder extends React.Component {
+export default class Finder extends React.Component {
 
   constructor(){
     super();
@@ -42,12 +42,12 @@ export default class NTFinder extends React.Component {
         <Devtools />
         <div className="fi-treeview">
           <div className="fi-buttonbox"></div>
-          <NTTreeView onSelectCategory={this.selectCategory.bind(this)} store={this.props.store.categories} />
+          <TreeView onSelectCategory={this.selectCategory.bind(this)} store={this.props.store.categories} />
         </div>
         <div className="fi-divider" onMouseDown={this.resizeTreeView}></div>
         <div className="fi-listview">
-          <NTPathView onSelectCategory={this.selectCategory.bind(this)} store={this.props.store.categoriesPath} />
-          <NTListView onSelectCategory={this.selectCategory.bind(this)} store={this.props.store.listViewStore} />
+          <PathView onSelectCategory={this.selectCategory.bind(this)} store={this.props.store.categoriesPath} />
+          <ListView onSelectCategory={this.selectCategory.bind(this)} store={this.props.store.listViewStore} />
         </div>
       </div>
     );

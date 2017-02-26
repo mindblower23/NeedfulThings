@@ -1,22 +1,22 @@
 import React from "react";
 import { observer } from "mobx-react";
 
-import "../css/NTPathView.css";
+import "../css/PathView.css";
 
-import NTPathViewItem from "./NTPathViewItem";
+import PathViewItem from "./PathViewItem";
 
 @observer
-export default class NTPathView extends React.Component {
+export default class PathView extends React.Component {
   render(){
 
     let itemCount = this.props.store.length;
     let items = this.props.store.map((item, i) => (
-      <NTPathViewItem key={item.id} store={item} onSelectCategory={this.props.onSelectCategory} >
+      <PathViewItem key={item.id} store={item} onSelectCategory={this.props.onSelectCategory} >
       {(i !== itemCount - 1)
           ? <span className="pv-item-divider">></span>
           : <span></span>
       }
-    </NTPathViewItem>
+    </PathViewItem>
     ));
 
     return(

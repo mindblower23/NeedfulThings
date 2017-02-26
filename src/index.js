@@ -2,10 +2,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import store from "./NTStore";
-import NTFinder from "./components/NTFinder";
+import store from "./Store";
+import Finder from "./components/Finder";
 
 ReactDOM.render(
-  <NTFinder store={store}/>,
+  <Finder store={store}/>,
   document.getElementById("me")
 );

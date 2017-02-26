@@ -2,7 +2,7 @@ import { computed, observable, action } from "mobx";
 
 import serverActions from "./ServerActions";
 
-class NTStore {
+class Store {
   @observable categories = [];
   @observable listViewStore = {'selectedCategory': {}};
   @observable categoriesPath = [];
@@ -13,7 +13,6 @@ class NTStore {
 
   @action getCategories(){
     serverActions.act("getCategories", null, (data) => {
-      console.log("getCategories!");
       data[0].isCollapsed = true;
 
       this.categories.replace(data);
@@ -40,8 +39,6 @@ class NTStore {
 
       this.listViewStore.selectedCategory = categoryObject;
 
-      console.log("getThings-categoriesPath: " + JSON.stringify(this.categoriesPath));
-
     });
   }
 
@@ -58,8 +55,6 @@ class NTStore {
   }
 
   setCollapsedParents(categories, parentIdHistory){
-    console.log("parentHistory: " + JSON.stringify(parentIdHistory));
-
     if(parentIdHistory.length > 0){
       let currentCategory = categories.find((item) => item.id === parentIdHistory[0]);
       currentCategory.isCollapsed = true;
@@ -74,5 +69,5 @@ class NTStore {
 
 }
 
-var store = window.store = new NTStore();
+var store = window.store = new Store();
 export default store;

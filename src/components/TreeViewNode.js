@@ -1,13 +1,13 @@
 import React from "react";
 import { observer } from "mobx-react";
 
-import "../css/NTTreeViewNode.css";
+import "../css/TreeViewNode.css";
 
-import NTTreeViewNodeCollapser from "./NTTreeViewNodeCollapser";
+import TreeViewNodeCollapser from "./TreeViewNodeCollapser";
 import IconStore from "./IconStore";
 
 @observer
-export default class NTTreeViewNode extends React.Component {
+export default class TreeViewNode extends React.Component {
 
   expandNode(e){
     this.props.store.isCollapsed = !this.props.store.isCollapsed;
@@ -18,13 +18,13 @@ export default class NTTreeViewNode extends React.Component {
 
     let collapser = null;
     if (this.props.store.children.length > 0){
-      collapser = <NTTreeViewNodeCollapser isCollapsed={this.props.store.isCollapsed} onToggle={this.expandNode.bind(this)} />;
+      collapser = <TreeViewNodeCollapser isCollapsed={this.props.store.isCollapsed} onToggle={this.expandNode.bind(this)} />;
     }
 
     let subNodes = [];
     if(this.props.store.isCollapsed){
       subNodes = this.props.store.children.map(item => (
-        <NTTreeViewNode onSelectCategory={this.props.onSelectCategory} key={item.id} store={item} />
+        <TreeViewNode onSelectCategory={this.props.onSelectCategory} key={item.id} store={item} />
       ));
     }
 
