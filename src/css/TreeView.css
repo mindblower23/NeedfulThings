@@ -1,3 +1,4 @@
 .tv-container {
+  flex-basis: 100%;
   min-width: 500px;
 }
