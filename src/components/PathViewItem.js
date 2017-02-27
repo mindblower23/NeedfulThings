@@ -1,8 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
 
-import "../css/PathViewItem.css";
-
 export default class PathViewItem extends React.Component {
   render(){
     return(

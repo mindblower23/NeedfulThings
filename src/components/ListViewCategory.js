@@ -9,7 +9,7 @@ export default class ListViewCategory extends React.Component {
   render(){
 
     return(
-      <div className="lv-item" onDoubleClick={() => {this.props.onSelectCategory(this.props.store)}}>
+      <div className="lv-item lv-category" onDoubleClick={() => {this.props.onSelectCategory(this.props.store)}}>
         <span className="lv-iconbox">
           {IconStore["category"]}
         </span>

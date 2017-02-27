@@ -9,3 +9,10 @@
   background-color: #303030;
   color: #999;
 }
+.pv-item {
+  font-size: 80%;
+  cursor: pointer;
+}
+.pv-item-divider {
+  margin: 0 10px 0 10px;
+}

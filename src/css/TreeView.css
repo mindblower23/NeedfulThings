@@ -2,3 +2,33 @@
   flex-basis: 100%;
   min-width: 500px;
 }
+.tv-node {
+  user-select: none;
+  white-space: nowrap;
+}
+.tv-node-item {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 2px;
+  margin-top: 2px;
+}
+.tv-node-item.active {
+  font-weight: bold;
+}
+.tv-node-collapsed {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+.tv-iconbox {
+  width: 24px;
+  height: 24px;
+  padding-right: 6px;
+}
+
+/*
+.iconFolder path{
+  d: path("M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z");
+}
+*/

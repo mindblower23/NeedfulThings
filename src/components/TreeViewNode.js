@@ -1,8 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
 
-import "../css/TreeViewNode.css";
-
 import TreeViewNodeCollapser from "./TreeViewNodeCollapser";
 import IconStore from "./IconStore";
 
@@ -27,9 +25,6 @@ export default class TreeViewNode extends React.Component {
         <TreeViewNode onSelectCategory={this.props.onSelectCategory} key={item.id} store={item} />
       ));
     }
-
-    let icon = null;
-
 
     return (
       <div className="tv-node">
