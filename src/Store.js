@@ -1,4 +1,7 @@
 import { computed, observable, action } from "mobx";
+import React from "react";
+
+import ThingEditor from "./components/ThingEditor";
 
 import serverActions from "./ServerActions";
 
@@ -6,6 +9,10 @@ class Store {
   @observable categories = [];
   @observable listViewStore = {'selectedCategory': {}};
   @observable categoriesPath = [];
+  @observable thingEditor = {'isOpen' : true};
+  @observable dialog = {isOpen : false, dialogTag : null};
+
+  dialogs = {ThingEditor : <ThingEditor />};
 
   @action initStartUp(){
     this.getCategories();
@@ -65,6 +72,11 @@ class Store {
       parentIdHistory.shift();
       this.setCollapsedParents(currentCategory.children, parentIdHistory);
     }
+  }
+
+  openDialog(componentName){
+    this.dialog.dialogTag = this.dialogs[componentName];
+    this.dialog.isOpen = true;
   }
 
 }

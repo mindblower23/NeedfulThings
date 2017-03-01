@@ -10,7 +10,7 @@ body {
   flex-flow: column;
   flex-wrap: wrap;
   background-color: #00b000;
-  height: 100vh;
+  height: 200vh;
 }
 .fi-header {
   height: 50px;
@@ -23,6 +23,8 @@ body {
   flex: 1;
   display: flex;
   flex-flow: row;
+  position: relative;
+  align-items: stretch;
 }
 .fi-treeview {
   display: flex;
@@ -50,6 +52,7 @@ body {
   display: flex;
   flex-flow: column;
   overflow-x: hidden;
+  align-self: stretch;
 }
 
 .icon-folder{

@@ -9,9 +9,9 @@ import PathViewItem from "./PathViewItem";
 export default class PathView extends React.Component {
   render(){
 
-    let itemCount = this.props.store.length;
-    let items = this.props.store.map((item, i) => (
-      <PathViewItem key={item.id} store={item} onSelectCategory={this.props.onSelectCategory} >
+    let itemCount = this.props.store.categoriesPath.length;
+    let items = this.props.store.categoriesPath.map((item, i) => (
+      <PathViewItem key={item.id} store={this.props.store} category={item} >
       {(i !== itemCount - 1)
           ? <span className="pv-item-divider">></span>
           : <span></span>

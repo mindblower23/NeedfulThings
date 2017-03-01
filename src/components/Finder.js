@@ -7,6 +7,7 @@ import IconStore from "./IconStore";
 import TreeView from "./TreeView";
 import ListView from "./ListView";
 import PathView from "./PathView";
+import Dialog from "./Dialog";
 
 import Killme from "./Killme";
 
@@ -15,18 +16,14 @@ export default class Finder extends React.Component {
 
   constructor(){
     super();
+    this.state = {isOpenThingEditor : false};
   }
 
   componentDidMount() {
     this.props.store.initStartUp();
   }
 
-  selectCategory(item){
-    console.log("selectItem: " + item.id);
-    this.props.store.selectCategory(item);
-  }
-
-  resizeTreeView(ev){
+    resizeTreeView(ev){
     let treeView = document.querySelector(".fi-treeview");
     document.body.onmousemove = (e) => {
       treeView.style.flexBasis = e.pageX + "px";
@@ -40,23 +37,23 @@ export default class Finder extends React.Component {
 
     return(
         <div className="fi-container">
-          {/*<Devtools />*/}
+          <Devtools />
           <div className="fi-header">
             {IconStore.brain}
           </div>
           <div className="fi-container-sub">
             <div className="fi-treeview">
               <div className="fi-buttonbox"></div>
-              <TreeView onSelectCategory={this.selectCategory.bind(this)} store={this.props.store.categories} />
+              <TreeView store={this.props.store} />
             </div>
             <div className="fi-divider" onMouseDown={this.resizeTreeView}></div>
             <div className="fi-listview">
-              <PathView onSelectCategory={this.selectCategory.bind(this)} store={this.props.store.categoriesPath} />
-              <ListView onSelectCategory={this.selectCategory.bind(this)} store={this.props.store.listViewStore} />
+              <PathView store={this.props.store} />
+              <ListView store={this.props.store} />
             </div>
           </div>
+          <Dialog store={this.props.store.dialog} />
         </div>
-
     );
 
   }

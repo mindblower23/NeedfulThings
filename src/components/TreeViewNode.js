@@ -8,35 +8,42 @@ import IconStore from "./IconStore";
 export default class TreeViewNode extends React.Component {
 
   expandNode(e){
-    this.props.store.isCollapsed = !this.props.store.isCollapsed;
+    this.props.category.isCollapsed = !this.props.category.isCollapsed;
+  }
+
+  selectCategory(e){
+    console.log("selectItem: " + this.props.category.id);
+    this.props.store.selectCategory(this.props.category);
   }
 
   render() {
     console.log("Node rendered: " + this.props.store.name);
 
+    let category = this.props.category;
+
     let collapser = null;
-    if (this.props.store.children.length > 0){
-      collapser = <TreeViewNodeCollapser isCollapsed={this.props.store.isCollapsed} onToggle={this.expandNode.bind(this)} />;
+    if (category.children.length > 0){
+      collapser = <TreeViewNodeCollapser isCollapsed={category.isCollapsed} onToggle={this.expandNode.bind(this)} />;
     }
 
     let subNodes = [];
-    if(this.props.store.isCollapsed){
-      subNodes = this.props.store.children.map(item => (
-        <TreeViewNode onSelectCategory={this.props.onSelectCategory} key={item.id} store={item} />
+    if(category.isCollapsed){
+      subNodes = category.children.map(item => (
+        <TreeViewNode store={this.props.store} category={item} key={item.id} />
       ));
     }
 
     return (
       <div className="tv-node">
-        <div className={"tv-node-item " + (this.props.store.isActive ? "active" : "")}>
+        <div className={"tv-node-item " + (category.isActive ? "active" : "")}>
           <span className="tv-node-collapsed">
             {collapser}
           </span>
-          <span className="tv-iconbox" onClick={() => this.props.onSelectCategory(this.props.store)} onDoubleClick={this.expandNode.bind(this)}>
+          <span className="tv-iconbox" onClick={this.selectCategory.bind(this)} onDoubleClick={this.expandNode.bind(this)}>
             {IconStore["category"]}
           </span>
-          <span onClick={() => this.props.onSelectCategory(this.props.store)} onDoubleClick={this.expandNode.bind(this)}>
-            {this.props.store.name}
+          <span onClick={this.selectCategory.bind(this)} onDoubleClick={this.expandNode.bind(this)}>
+            {category.name}
           </span>
         </div>
         <div style={{marginLeft: "20px"}}>{subNodes}</div>

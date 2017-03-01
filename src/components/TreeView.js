@@ -12,8 +12,8 @@ export default class TreeView extends React.Component {
     console.log("TreeView: RENDER!");
     //console.log("TreeView Store: " + JSON.stringify(this.props.store));
 
-    let tree = this.props.store.map(item => (
-      <TreeViewNode onSelectCategory={this.props.onSelectCategory} key={item.id} collapsed={item.isCollapsed} store={item} />
+    let tree = this.props.store.categories.map(item => (
+      <TreeViewNode store={this.props.store} key={item.id} category={item} />
     ));
 
     return (

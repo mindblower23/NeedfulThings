@@ -14,15 +14,17 @@ export default class ListView extends React.Component {
     let rows = [];
     let items = [];
 
-    if (this.props.store.selectedCategory.children){
-      rows = this.props.store.selectedCategory.children.map(item => (
-        <ListViewCategory key={item.id} store={item} onSelectCategory={this.props.onSelectCategory} />
+    let selectedCategory = this.props.store.listViewStore.selectedCategory;
+
+    if (selectedCategory.children){
+      rows = selectedCategory.children.map(item => (
+        <ListViewCategory key={item.id} store={this.props.store} category={item} />
       ));
     }
 
-    if(this.props.store.selectedCategory.things){
-      items = this.props.store.selectedCategory.things.map(item => (
-        <ListViewThing key={item.id} store={item} />
+    if(selectedCategory.things){
+      items = selectedCategory.things.map(item => (
+        <ListViewThing key={item.id} store={this.props.store} thing={item} />
       ));
     }
 
