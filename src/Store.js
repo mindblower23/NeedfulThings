@@ -11,6 +11,12 @@ class Store {
   @observable categoriesPath = [];
   @observable thingEditor = {'isOpen' : true};
   @observable dialog = {isOpen : false, dialogTag : null};
+  @observable contextMenu = {
+                      isVisible : false,
+                      position : {left : 0, top : 0},
+                      contextMenuItemsComponent : "",
+                      connectedObject : {}
+                    };
 
   dialogs = {ThingEditor : <ThingEditor />};
 

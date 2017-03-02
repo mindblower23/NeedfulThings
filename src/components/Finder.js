@@ -8,6 +8,7 @@ import TreeView from "./TreeView";
 import ListView from "./ListView";
 import PathView from "./PathView";
 import Dialog from "./Dialog";
+import ContextMenu from "./ContextMenu";
 
 import Killme from "./Killme";
 
@@ -53,6 +54,7 @@ export default class Finder extends React.Component {
             </div>
           </div>
           <Dialog store={this.props.store.dialog} />
+          <ContextMenu store={this.props.store} />
         </div>
     );
 

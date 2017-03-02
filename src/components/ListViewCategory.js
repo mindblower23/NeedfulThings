@@ -23,28 +23,19 @@ export default class ListViewCategory extends React.Component {
   openContextMenu(e){
     e.preventDefault();
 
-    this.setState({
-      contextMenu : true,
-      contextMenuPosition : {
-        left : e.pageX,
-        top : e.pageY
-      }
-    });
+    let contextMenu = this.props.store.contextMenu;
 
-    document.body.onmousedown = () => {
-      this.setState({contextMenu : false});
-      document.body.onmousedown = null;
-    };
+    contextMenu.position = {left : e.pageX, top : e.pageY};
+    contextMenu.contextMenuItemsComponent = "ContextMenuCategory";
+    contextMenu.connectedObject = this.props.category;
+    contextMenu.isVisible = true;
+
   }
 
   render(){
-    let contextMenu = null;
-    if(this.state.contextMenu)
-      contextMenu = <ContextMenuCategory contextMenuPosition={this.state.contextMenuPosition} store={this.props.store} category={this.props.category} />
 
     return(
       <div className="lv-item lv-category" onDoubleClick={this.selectCategory.bind(this)} onContextMenu={this.openContextMenu.bind(this)}>
-        {contextMenu}
         <span className="lv-iconbox">
           {IconStore["category"]}
         </span>
