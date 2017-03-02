@@ -8,6 +8,9 @@ import ThingEditor from "./ThingEditor";
 @observer
 export default class Dialog extends React.Component{
 
+  close(){
+    this.props.store.isOpen = false;
+  }
   render(){
     let componet = null;
 
@@ -23,7 +26,7 @@ export default class Dialog extends React.Component{
     let style = {"display" : display};
 
     return(
-      <div className="m-backdrop" style={style}>
+      <div className="m-backdrop" style={style} onClick={this.close.bind(this)} >
         {componet}
       </div>
     );

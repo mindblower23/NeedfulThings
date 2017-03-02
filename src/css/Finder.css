@@ -4,6 +4,7 @@ body {
   padding: 0;
   margin: 0;
   background-color: #0000b0;
+  user-select: none;
 }
 .fi-container {
   display: flex;

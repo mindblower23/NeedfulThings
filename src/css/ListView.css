@@ -42,3 +42,10 @@
   margin-right: 6px;
   margin-left: 6px;
 }
+.context-menu{
+  position: fixed;
+  width: 300px;
+  height: 200px;
+  background-color: #b00000;
+  z-index: 9999;
+}

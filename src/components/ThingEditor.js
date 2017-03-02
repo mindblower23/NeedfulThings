@@ -1,8 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
 
-import Modalizer from "./Modalizer";
-
 @observer
 export default class ThingEditor extends React.Component {
 
@@ -18,10 +16,10 @@ export default class ThingEditor extends React.Component {
   render() {
 
     return(
-      <Modalizer isOpen={this.props.store.isOpen}>
+      <div>
         <div>Here i am!!!!!!!!!!!!!!!!!!!!!!</div>
         <div onClick={this.close.bind(this)}>And THIS closes the Modal</div>
-      </Modalizer>
+      </div>
   );
   }
 

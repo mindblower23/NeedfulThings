@@ -16,6 +16,9 @@
 .tv-node-item.active {
   font-weight: bold;
 }
+.tv-node-item:hover  {
+  background-color: #888;
+}
 .tv-node-collapsed {
   display: inline-block;
   width: 20px;
@@ -26,7 +29,29 @@
   height: 24px;
   padding-right: 6px;
 }
-
+.tv-node-context {
+  position: fixed;
+  display: flex;
+  flex-flow: column;
+  min-width: 180px;
+  border: 2px solid #999;
+  background-color: #fff;
+  box-shadow: 1px 2px 8px rgba(0, 0, 0, .5);
+  z-index: 9999;
+}
+.tv-node-context-item {
+  flex-basis: 30px;
+  display: flex;
+  align-items: center;
+  border-left: 6px solid #fff;
+  padding-left: 4px;
+  padding-right: 10px;
+  cursor: pointer;
+}
+.tv-node-context-item:hover {
+  border-left-color: #666;
+  background-color: #ddd;
+}
 /*
 .iconFolder path{
   d: path("M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z");

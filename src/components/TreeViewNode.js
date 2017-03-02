@@ -2,10 +2,37 @@ import React from "react";
 import { observer } from "mobx-react";
 
 import TreeViewNodeCollapser from "./TreeViewNodeCollapser";
+import ContextMenuCategory from "./ContextMenuCategory";
+
 import IconStore from "./IconStore";
 
 @observer
 export default class TreeViewNode extends React.Component {
+
+  constructor(){
+    super();
+    this.state = {
+      contextMenu : false,
+      contextMenuPosition : {}
+    };
+  }
+
+  openContextMenu(e){
+    e.preventDefault();
+
+    this.setState({
+      contextMenu : true,
+      contextMenuPosition : {
+        left : e.pageX,
+        top : e.pageY
+      }
+    });
+
+    document.body.onmousedown = () => {
+      this.setState({contextMenu : false});
+      document.body.onmousedown = null;
+    };
+  }
 
   expandNode(e){
     this.props.category.isCollapsed = !this.props.category.isCollapsed;
@@ -17,7 +44,7 @@ export default class TreeViewNode extends React.Component {
   }
 
   render() {
-    console.log("Node rendered: " + this.props.store.name);
+    console.log("Node rendered: " + this.props.category.name);
 
     let category = this.props.category;
 
@@ -33,16 +60,23 @@ export default class TreeViewNode extends React.Component {
       ));
     }
 
+    let contextMenu = null;
+    if(this.state.contextMenu)
+      contextMenu = <ContextMenuCategory contextMenuPosition={this.state.contextMenuPosition} store={this.props.store} category={this.props.category} />
+
     return (
+
+
       <div className="tv-node">
-        <div className={"tv-node-item " + (category.isActive ? "active" : "")}>
+        {contextMenu}
+        <div className={"tv-node-item " + (category.isActive ? "active" : "")} onContextMenu={this.openContextMenu.bind(this)}>
           <span className="tv-node-collapsed">
             {collapser}
           </span>
           <span className="tv-iconbox" onClick={this.selectCategory.bind(this)} onDoubleClick={this.expandNode.bind(this)}>
             {IconStore["category"]}
           </span>
-          <span onClick={this.selectCategory.bind(this)} onDoubleClick={this.expandNode.bind(this)}>
+          <span className="tv-node-item-text" onClick={this.selectCategory.bind(this)} onDoubleClick={this.expandNode.bind(this)}>
             {category.name}
           </span>
         </div>
