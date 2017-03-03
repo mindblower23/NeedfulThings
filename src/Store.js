@@ -15,7 +15,8 @@ class Store {
                       isVisible : false,
                       position : {left : 0, top : 0},
                       contextMenuItemsComponent : "",
-                      connectedObject : {}
+                      connectedObject : {},
+                      test : (msg) => {console.log(msg)}
                     };
 
   dialogs = {ThingEditor : <ThingEditor />};
