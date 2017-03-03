@@ -10,14 +10,26 @@ import IconStore from "./IconStore";
 export default class TreeViewNode extends React.Component {
 
   openContextMenu(e){
-    e.preventDefault();
-
     let contextMenu = this.props.store.contextMenu;
 
     contextMenu.position = {left : e.pageX, top : e.pageY};
     contextMenu.contextMenuItemsComponent = "ContextMenuCategory";
     contextMenu.connectedObject = this.props.category;
+    contextMenu.actions.onRename = this.nodeRename.bind(this);
+    contextMenu.actions.onAdd = this.nodeAdd.bind(this);
+    contextMenu.actions.onDelete = this.nodeDelete.bind(this);
     contextMenu.isVisible = true;
+  }
+
+  nodeRename(e){
+    //e.preventDefault();
+    console.log("NODE RENAME!!!!!!!");
+  }
+  nodeAdd(){
+    console.log("NODE ADD!!!!!!!");
+  }
+  nodeDelete(){
+    console.log("NODE DELETE!!!!!!!");
   }
 
   expandNode(e){

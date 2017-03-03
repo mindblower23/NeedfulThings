@@ -15,16 +15,11 @@ import Killme from "./Killme";
 
 export default class Finder extends React.Component {
 
-  constructor(){
-    super();
-    this.state = {isOpenThingEditor : false};
-  }
-
   componentDidMount() {
     this.props.store.initStartUp();
   }
 
-    resizeTreeView(ev){
+  resizeTreeView(ev){
     let treeView = document.querySelector(".fi-treeview");
     document.body.onmousemove = (e) => {
       treeView.style.flexBasis = e.pageX + "px";

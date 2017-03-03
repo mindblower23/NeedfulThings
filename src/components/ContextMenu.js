@@ -13,11 +13,11 @@ export default class ContextMenu extends React.Component {
 
     if (storeContextMenu.isVisible){
 
-      document.body.onmousedown = () => {
-        console.log("body.onmousedown is triggered!");
+      document.onclick = (e) => {
+        console.log("EVENT TARGET" + e.target.className);
         storeContextMenu.isVisible = false;
-        document.body.onmousedown = null;
-      }
+        document.onclick = null;
+      };
 
       let contextMenuItemsComponent = null;
 
