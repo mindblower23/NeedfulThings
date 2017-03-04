@@ -1,10 +1,11 @@
 import React from "react";
 import { observer } from "mobx-react";
 
+@observer
 export default class PathViewItem extends React.Component {
 
   selectCategory(){
-    this.props.store.selectCategory(this.props.category);
+    this.props.appState.selectCategory(this.props.category);
   }
 
   render(){

@@ -11,7 +11,7 @@ export default class ThingEditor extends React.Component {
 
   close(){
     console.log("ThingEditor tries to close!");
-    this.props.store.isOpen = false;
+    this.props.appState.isOpen = false;
   }
   render() {
 

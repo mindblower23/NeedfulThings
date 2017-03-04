@@ -2,6 +2,7 @@ import React from "react";
 import { observer } from "mobx-react";
 
 import TreeViewNodeCollapser from "./TreeViewNodeCollapser";
+import CategoryEditor from "./CategoryEditor";
 import ContextMenuCategory from "./ContextMenuCategory";
 
 import IconStore from "./IconStore";
@@ -9,26 +10,36 @@ import IconStore from "./IconStore";
 @observer
 export default class TreeViewNode extends React.Component {
 
+  constructor(){
+    super();
+    this.state = {editCategory : false};
+  }
+
   openContextMenu(e){
-    let contextMenu = this.props.store.contextMenu;
+    let contextMenu = this.props.appState.contextMenu;
 
     contextMenu.position = {left : e.pageX, top : e.pageY};
     contextMenu.contextMenuItemsComponent = "ContextMenuCategory";
     contextMenu.connectedObject = this.props.category;
-    contextMenu.actions.onRename = this.nodeRename.bind(this);
-    contextMenu.actions.onAdd = this.nodeAdd.bind(this);
-    contextMenu.actions.onDelete = this.nodeDelete.bind(this);
+    contextMenu.actions.onRename = this.renameCategory.bind(this);
+    contextMenu.actions.onAdd = this.addCategory.bind(this);
+    contextMenu.actions.onDelete = this.deleteCategory.bind(this);
     contextMenu.isVisible = true;
   }
 
-  nodeRename(e){
-    //e.preventDefault();
-    console.log("NODE RENAME!!!!!!!");
+  renameCategory(e){
+    e.stopPropagation();
+
+    this.props.appState.contextMenu.isVisible = false;
+    this.setState({editCategory : true});
   }
-  nodeAdd(){
+  editorClose(){
+    this.setState({editCategory : false});
+  }
+  addCategory(){
     console.log("NODE ADD!!!!!!!");
   }
-  nodeDelete(){
+  deleteCategory(){
     console.log("NODE DELETE!!!!!!!");
   }
 
@@ -38,10 +49,11 @@ export default class TreeViewNode extends React.Component {
 
   selectCategory(e){
     console.log("selectItem: " + this.props.category.id);
-    this.props.store.selectCategory(this.props.category);
+    this.props.appState.selectCategory(this.props.category);
   }
 
   render() {
+
     console.log("Node rendered: " + this.props.category.name);
 
     let category = this.props.category;
@@ -54,12 +66,20 @@ export default class TreeViewNode extends React.Component {
     let subNodes = [];
     if(category.isCollapsed){
       subNodes = category.children.map(item => (
-        <TreeViewNode store={this.props.store} category={item} key={item.id} />
+        <TreeViewNode appState={this.props.appState} category={item} key={item.id} />
       ));
     }
 
-    return (
+    let item = category.name;
+    if(this.state.editCategory)
+      item =  <CategoryEditor
+                appState={this.props.appState}
+                category={this.props.category}
+                value={category.name}
+                onClose={this.editorClose.bind(this)}
+              />
 
+    return (
 
       <div className="tv-node">
         <div className={"tv-node-item " + (category.isActive ? "active" : "")} onContextMenu={this.openContextMenu.bind(this)}>
@@ -70,7 +90,7 @@ export default class TreeViewNode extends React.Component {
             {IconStore["category"]}
           </span>
           <span className="tv-node-item-text" onClick={this.selectCategory.bind(this)} onDoubleClick={this.expandNode.bind(this)}>
-            {category.name}
+            {item}
           </span>
         </div>
         <div style={{marginLeft: "20px"}}>{subNodes}</div>

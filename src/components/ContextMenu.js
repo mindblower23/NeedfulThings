@@ -7,23 +7,24 @@ import ContextMenuCategory from "./ContextMenuCategory";
 export default class ContextMenu extends React.Component {
 
   render(){
-    let storeContextMenu = this.props.store.contextMenu;
+
+    let storeContextMenu = this.props.appState.contextMenu;
 
     console.log("ContextMenu: " + JSON.stringify(storeContextMenu));
 
     if (storeContextMenu.isVisible){
 
-      document.onclick = (e) => {
+      this.props.appState.finder.onClick = (e) => {
         console.log("EVENT TARGET" + e.target.className);
         storeContextMenu.isVisible = false;
-        document.onclick = null;
+        this.props.appState.finder.onClick = null;
       };
 
       let contextMenuItemsComponent = null;
 
       switch (storeContextMenu.contextMenuItemsComponent) {
         case "ContextMenuCategory":
-          contextMenuItemsComponent = <ContextMenuCategory className="context-menu" style={storeContextMenu.position} store={this.props.store} />;
+          contextMenuItemsComponent = <ContextMenuCategory className="context-menu" style={storeContextMenu.position} appState={this.props.appState} />;
           break;
         default:
           contextMenuItemsComponent = null;

@@ -9,20 +9,20 @@ import ThingEditor from "./ThingEditor";
 export default class Dialog extends React.Component{
 
   close(){
-    this.props.store.isOpen = false;
+    this.props.appState.dialog.isOpen = false;
   }
   render(){
     let componet = null;
 
-    switch (this.props.store.dialogTag) {
+    switch (this.props.appState.dialog.dialogTag) {
       case "ThingEditor":
-        componet = <ThingEditor store={this.props.store} />
+        componet = <ThingEditor appState={this.props.appState} />
         break;
       default:
         componet = null;
     }
 
-    let display = this.props.store.isOpen ? "block" : "none";
+    let display = this.props.appState.dialog.isOpen ? "block" : "none";
     let style = {"display" : display};
 
     return(

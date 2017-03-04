@@ -5,19 +5,20 @@ import ThingEditor from "./components/ThingEditor";
 
 import serverActions from "./ServerActions";
 
-class Store {
+class AppState {
+  @observable finder = {onClick: null, onContextMenu: null};
   @observable categories = [];
-  @observable listViewStore = {'selectedCategory': {}};
+  @observable listViewStore = {selectedCategory: {}};
   @observable categoriesPath = [];
-  @observable thingEditor = {'isOpen' : true};
-  @observable dialog = {isOpen : false, dialogTag : null};
+  @observable thingEditor = {isOpen: true};
+  @observable dialog = {isOpen: false, dialogTag: null};
   @observable contextMenu = {
-                      isVisible : false,
-                      position : {left : 0, top : 0},
-                      contextMenuItemsComponent : "",
-                      actions : {},
-                      connectedObject : {}
-                    };
+              isVisible: false,
+              position: {left : 0, top : 0},
+              contextMenuItemsComponent: "",
+              actions: {},
+              connectedObject: {}
+            };
 
   dialogs = {ThingEditor : <ThingEditor />};
 
@@ -30,7 +31,7 @@ class Store {
       data[0].isCollapsed = true;
 
       this.categories.replace(data);
-      this.selectCategory(data[0]);
+      this.selectCategory(this.categories[0]);
 
     })
   }
@@ -88,5 +89,5 @@ class Store {
 
 }
 
-var store = window.store = new Store();
-export default store;
+var appState = window.appState = new AppState();
+export default appState;

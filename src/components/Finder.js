@@ -15,8 +15,26 @@ import Killme from "./Killme";
 
 export default class Finder extends React.Component {
 
-  componentDidMount() {
-    this.props.store.initStartUp();
+  appState = null;
+
+  componentWillMount() {
+    this.appState = this.props.appState;
+    this.appState.initStartUp();
+  }
+
+  click(e){
+    //call the event handler function provided by the Store
+    if(this.appState.finder.onClick !== null){
+      this.appState.finder.onClick(e);
+      console.log("Finder received a click!");
+    }
+  }
+  rightClick(e){
+    //call the event handler function provided by the Store
+    if(this.appState.finder.onContextMenu !== null){
+      this.appState.finder.onContextMenu(e);
+      console.log("Finder received a click!");
+    }
   }
 
   resizeTreeView(ev){
@@ -30,9 +48,10 @@ export default class Finder extends React.Component {
   }
 
   render(){
+    console.log(JSON.stringify(this.appState));
 
     return(
-        <div className="fi-container">
+        <div onClick={this.click.bind(this)} onContextMenu={this.rightClick.bind(this)} className="fi-container">
           <Devtools />
           <div className="fi-header">
             {IconStore.brain}
@@ -40,16 +59,16 @@ export default class Finder extends React.Component {
           <div className="fi-container-sub">
             <div className="fi-treeview">
               <div className="fi-buttonbox"></div>
-              <TreeView store={this.props.store} />
+              <TreeView appState={this.appState} />
             </div>
             <div className="fi-divider" onMouseDown={this.resizeTreeView}></div>
             <div className="fi-listview">
-              <PathView store={this.props.store} />
-              <ListView store={this.props.store} />
+              <PathView appState={this.appState} />
+              <ListView appState={this.appState} />
             </div>
           </div>
-          <Dialog store={this.props.store.dialog} />
-          <ContextMenu store={this.props.store} />
+          <Dialog appState={this.appState} />
+          <ContextMenu appState={this.appState} />
         </div>
     );
 
