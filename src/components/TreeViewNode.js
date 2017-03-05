@@ -4,26 +4,41 @@ import { observer } from "mobx-react";
 import TreeViewNodeCollapser from "./TreeViewNodeCollapser";
 import CategoryEditor from "./CategoryEditor";
 import ContextMenuCategory from "./ContextMenuCategory";
+import DlgConfirm from "./DlgConfirm";
 
 import IconStore from "./IconStore";
 
 @observer
 export default class TreeViewNode extends React.Component {
 
+  appStore = null;
+
   constructor(){
     super();
     this.state = {editCategory : false};
   }
 
+  componentWillMount(){
+    this.appState = this.props.appState;
+  }
+
   openContextMenu(e){
     let contextMenu = this.props.appState.contextMenu;
 
+    contextMenu.contextMenuItemsComponent = <ContextMenuCategory
+      onRename={this.renameCategory.bind(this)}
+      onAdd={this.addCategory.bind(this)}
+      onDelete={this.deleteCategory.bind(this)}
+      connectedObject={this.props.category}
+      position={{left : e.pageX, top : e.pageY}}
+    />;
+    /*
     contextMenu.position = {left : e.pageX, top : e.pageY};
-    contextMenu.contextMenuItemsComponent = "ContextMenuCategory";
     contextMenu.connectedObject = this.props.category;
     contextMenu.actions.onRename = this.renameCategory.bind(this);
     contextMenu.actions.onAdd = this.addCategory.bind(this);
     contextMenu.actions.onDelete = this.deleteCategory.bind(this);
+    */
     contextMenu.isVisible = true;
   }
 
@@ -41,9 +56,19 @@ export default class TreeViewNode extends React.Component {
   }
   deleteCategory(){
     console.log("NODE DELETE!!!!!!!");
+    let dlg = this.appState.dialog;
+    dlg.dialogComponent = <DlgConfirm
+                            onOk={() => console.log("DELETE CONFIRMED")}
+                            onCancel={() => {this.appState.dialog.isVisible = false}}
+                            text="Do you really want to delete the category?"
+                          />
+    dlg.buttonsOnly = true;
+    dlg.isVisible = true;
+
   }
 
   expandNode(e){
+    e.stopPropagation();
     this.props.category.isCollapsed = !this.props.category.isCollapsed;
   }
 
@@ -82,14 +107,19 @@ export default class TreeViewNode extends React.Component {
     return (
 
       <div className="tv-node">
-        <div className={"tv-node-item " + (category.isActive ? "active" : "")} onContextMenu={this.openContextMenu.bind(this)}>
+        <div
+          className={"tv-node-item " + (category.isActive ? "active" : "")}
+          onContextMenu={this.openContextMenu.bind(this)}
+          onClick={this.selectCategory.bind(this)}
+          onDoubleClick={this.expandNode.bind(this)}
+        >
           <span className="tv-node-collapsed">
             {collapser}
           </span>
-          <span className="tv-iconbox" onClick={this.selectCategory.bind(this)} onDoubleClick={this.expandNode.bind(this)}>
+          <span className="tv-iconbox" >
             {IconStore["category"]}
           </span>
-          <span className="tv-node-item-text" onClick={this.selectCategory.bind(this)} onDoubleClick={this.expandNode.bind(this)}>
+          <span className="tv-node-item-text">
             {item}
           </span>
         </div>

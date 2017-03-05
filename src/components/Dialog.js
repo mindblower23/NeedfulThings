@@ -9,25 +9,18 @@ import ThingEditor from "./ThingEditor";
 export default class Dialog extends React.Component{
 
   close(){
-    this.props.appState.dialog.isOpen = false;
+    if(!this.props.appState.dialog.buttonsOnly)
+      this.props.appState.dialog.isVisible = false;
   }
+
   render(){
-    let componet = null;
 
-    switch (this.props.appState.dialog.dialogTag) {
-      case "ThingEditor":
-        componet = <ThingEditor appState={this.props.appState} />
-        break;
-      default:
-        componet = null;
-    }
-
-    let display = this.props.appState.dialog.isOpen ? "block" : "none";
+    let display = this.props.appState.dialog.isVisible ? "block" : "none";
     let style = {"display" : display};
 
     return(
       <div className="m-backdrop" style={style} onClick={this.close.bind(this)} >
-        {componet}
+        {this.props.appState.dialog.dialogComponent}
       </div>
     );
   }

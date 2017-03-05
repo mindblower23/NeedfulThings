@@ -20,18 +20,8 @@ export default class ContextMenu extends React.Component {
         this.props.appState.finder.onClick = null;
       };
 
-      let contextMenuItemsComponent = null;
-
-      switch (storeContextMenu.contextMenuItemsComponent) {
-        case "ContextMenuCategory":
-          contextMenuItemsComponent = <ContextMenuCategory className="context-menu" style={storeContextMenu.position} appState={this.props.appState} />;
-          break;
-        default:
-          contextMenuItemsComponent = null;
-      }
-      console.log("contextMenuItemsComponent: " + contextMenuItemsComponent);
       return(
-        contextMenuItemsComponent
+        this.props.appState.contextMenu.contextMenuItemsComponent
       )
 
     } else

@@ -1,6 +1,7 @@
 .tv-container {
   flex-basis: 100%;
   min-width: 500px;
+  padding-top: 4px;
 }
 .tv-node {
   user-select: none;

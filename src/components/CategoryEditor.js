@@ -39,18 +39,20 @@ export default class CategoryEditor extends Component {
   }
 
   keyPress(e){
-    if(e.key === "Enter"){
+    if(e.keyCode === 13){
       this.props.category.name = e.target.value;
       this.props.appState.finder.onClick(e);
-    }
+    } else if (e.keyCode === 27)
+      this.props.appState.finder.onClick(e);
   }
 
   render(){
     return(
-      
+
       <input
+        className="category-editor"
         autoFocus
-        onKeyPress={this.keyPress.bind(this)}
+        onKeyDown={this.keyPress.bind(this)}
         onClick={this.click.bind(this)}
         value={this.state.value}
         onChange={this.handleChange.bind(this)}

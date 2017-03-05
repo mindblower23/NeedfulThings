@@ -11,21 +11,24 @@ class AppState {
   @observable listViewStore = {selectedCategory: {}};
   @observable categoriesPath = [];
   @observable thingEditor = {isOpen: true};
-  @observable dialog = {isOpen: false, dialogTag: null};
+
+  @observable dialog = {
+              isVisible: false,
+              dialogComponent: null,
+              buttonsOnly: false
+            };
   @observable contextMenu = {
               isVisible: false,
-              position: {left : 0, top : 0},
               contextMenuItemsComponent: "",
-              actions: {},
-              connectedObject: {}
             };
-
-  dialogs = {ThingEditor : <ThingEditor />};
 
   @action initStartUp(){
     this.getCategories();
   }
 
+  /**
+    * @desc load categories tree from server
+  */
   @action getCategories(){
     serverActions.act("getCategories", null, (data) => {
       data[0].isCollapsed = true;
@@ -36,40 +39,54 @@ class AppState {
     })
   }
 
-  @action selectCategory(categoryObject){
-    serverActions.act("getThings", {categories_id: categoryObject.id}, (data) => {
+  /**
+    * @desc loads all things of the selected category from serverActions
+    * sets the selected category in the tree view to active
+    * opens all parent nodes in the tree view
+  */
+  @action selectCategory(selectedCategory){
+    serverActions.act("getThings", {categories_id: selectedCategory.id}, (data) => {
 
-      categoryObject.things = data;
+      selectedCategory.things = data;
 
-      let parentIdHistory = categoryObject.parentIdHistory.slice();
+      let parentIdHistory = selectedCategory.parentIdHistory.slice();
       parentIdHistory.shift();
 
       this.categoriesPath.replace([]);
 
-      this.setCollapsedParents(this.categories, parentIdHistory);
+      this.collapseParentNodesAndBuildPathView(this.categories, parentIdHistory);
 
-      this.categoriesPath.push(categoryObject);
+      this.categoriesPath.push(selectedCategory);
 
-      this.setCategoryActive(this.categories, categoryObject.id);
+      this.setActiveCategory(this.categories, selectedCategory.id);
 
-      this.listViewStore.selectedCategory = categoryObject;
+      this.listViewStore.selectedCategory = selectedCategory;
 
     });
   }
 
-  setCategoryActive(categories, active_categoryId){
+  /**
+    * @desc sets the current category to isActive = true and all others to false
+    * categories are in a tree structure so this has to be done recursively
+  */
+  setActiveCategory(categories, active_categoryId){
     categories.forEach(item => {
-      if (item.id === active_categoryId)
-        item.isActive = true;
-      else if (item.isActive)
-        item.isActive = false;
+
+      item.isActive = (item.id === active_categoryId) ? true : false;
 
       if(item.children.length > 0)
-        this.setCategoryActive(item.children, active_categoryId);
+        this.setActiveCategory(item.children, active_categoryId);
     });
   }
 
-  setCollapsedParents(categories, parentIdHistory){
+  /**
+    * @desc opens all parent category nodes of the currently selected category
+    * categories are in a tree structure so this has to be done recursively
+    * the categories path array is build for the path view
+    * @categories the categories tree object
+    * @parentIdHistory an array with all the parent ids of the selected category
+  */
+  collapseParentNodesAndBuildPathView(categories, parentIdHistory){
     if(parentIdHistory.length > 0){
       let currentCategory = categories.find((item) => item.id === parentIdHistory[0]);
       currentCategory.isCollapsed = true;
@@ -78,7 +95,7 @@ class AppState {
       this.categoriesPath.push(currentCategory);
 
       parentIdHistory.shift();
-      this.setCollapsedParents(currentCategory.children, parentIdHistory);
+      this.collapseParentNodesAndBuildPathView(currentCategory.children, parentIdHistory);
     }
   }
 

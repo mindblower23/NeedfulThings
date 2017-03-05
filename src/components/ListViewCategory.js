@@ -1,6 +1,7 @@
 import React from "react";
 import { observer } from "mobx-react";
 
+import DlgConfirm from "./DlgConfirm";
 import ContextMenuCategory from "./ContextMenuCategory";
 import CategoryEditor from "./CategoryEditor";
 
@@ -23,10 +24,13 @@ export default class ListViewCategory extends React.Component {
 
     let contextMenu = this.props.appState.contextMenu;
 
-    contextMenu.position = {left : e.pageX, top : e.pageY};
-    contextMenu.contextMenuItemsComponent = "ContextMenuCategory";
-    contextMenu.connectedObject = this.props.category;
-    contextMenu.actions.onRename = this.renameCategory.bind(this);
+    contextMenu.contextMenuItemsComponent = <ContextMenuCategory
+      onRename={this.renameCategory.bind(this)}
+      onAdd={this.addCategory.bind(this)}
+      onDelete={this.deleteCategory.bind(this)}
+      connectedObject={this.props.category}
+      position={{left : e.pageX, top : e.pageY}}
+    />;
     contextMenu.isVisible = true;
   }
 
@@ -35,6 +39,19 @@ export default class ListViewCategory extends React.Component {
 
     this.props.appState.contextMenu.isVisible = false;
     this.setState({editCategory : true});
+  }
+  addCategory(e){
+
+  }
+  deleteCategory(e){
+    let dlg = this.props.appState.dialog;
+    dlg.dialogComponent = <DlgConfirm
+      onOk={() => {console.log("DELETE CONFIRMED"); this.props.appState.dialog.isVisible = false;}}
+      onCancel={() => {this.props.appState.dialog.isVisible = false}}
+      text="Do you really want to delete the category?"
+    />
+    dlg.buttonsOnly = true;
+    dlg.isVisible = true;
   }
 
   editorClose(){

@@ -1,9 +1,43 @@
 .m-backdrop {
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    height: 100%;
-    z-index: 9998;
-    background: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 9998;
+  background: rgba(0, 0, 0, 0.4);
   }
+.dlg-confirm {
+  display: flex;
+  flex-flow: column;
+  width: 300px;
+  height: 100px;
+  margin: 25vh auto auto auto;
+  background-color: #333;
+  padding-top: 30px;
+  border-radius: 6px 6px 6px 6px;
+  box-shadow: 1px 2px 8px rgba(0, 0, 0, .5);
+}
+.dlg-confirm-text {
+  flex: 1;
+  width:80%;
+  margin: auto;
+  color: #bbb;
+}
+.dlg-confirm-button-box {
+  flex-basis: 40px;
+  display: flex;
+  background-color: #666;
+}
+.dlg-confirm-button-box > button {
+  flex: 1;
+  background-color: #666;
+  border: 0;
+  outline: none;
+  cursor: pointer;
+  font-size: 100%;
+}
+.dlg-confirm-button-separator {
+  flex-basis: 2px;
+  background-color: #333;
+}

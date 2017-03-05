@@ -11,7 +11,7 @@ body {
   flex-flow: column;
   flex-wrap: wrap;
   background-color: #00b000;
-  height: 200vh;
+  height: 100vh;
 }
 .fi-header {
   height: 50px;
@@ -101,4 +101,13 @@ body {
 .context-menu-item:hover {
   border-left-color: #666;
   background-color: #ddd;
+}
+.category-editor {
+  border: 1px solid #999;
+  font-size: 100%;
+  width: 120px;
+  background-color: #ddd;
+}
+.category-editor:focus {
+  outline: none;
 }
