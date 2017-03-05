@@ -20,7 +20,7 @@ export default class ListViewThing extends React.Component {
   render(){
 
     return(
-      <div className="lv-item lv-thing">
+      <div onMouseOver={this.props.onSelect} className={this.props.selected ? "lv-item lv-thing lv-item-selected" : "lv-item lv-thing"}>
         <span className="lv-iconbox" onClick={this.editThing.bind(this)}>
           {IconStore["thing"]}
         </span>

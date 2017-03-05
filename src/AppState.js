@@ -13,13 +13,11 @@ class AppState {
   @observable thingEditor = {isOpen: true};
 
   @observable dialog = {
-              isVisible: false,
               dialogComponent: null,
               buttonsOnly: false
             };
   @observable contextMenu = {
-              isVisible: false,
-              contextMenuItemsComponent: "",
+              contextMenuComponent: null
             };
 
   @action initStartUp(){

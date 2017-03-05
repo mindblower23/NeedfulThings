@@ -10,18 +10,19 @@ export default class Dialog extends React.Component{
 
   close(){
     if(!this.props.appState.dialog.buttonsOnly)
-      this.props.appState.dialog.isVisible = false;
+      this.props.appState.dialog.dialogComponent = null;
   }
 
   render(){
 
-    let display = this.props.appState.dialog.isVisible ? "block" : "none";
-    let style = {"display" : display};
-
-    return(
-      <div className="m-backdrop" style={style} onClick={this.close.bind(this)} >
-        {this.props.appState.dialog.dialogComponent}
-      </div>
-    );
+    if (this.props.appState.dialog.dialogComponent !== null){
+      return(
+        <div className="m-backdrop" onClick={this.close.bind(this)} >
+          {this.props.appState.dialog.dialogComponent}
+        </div>
+      );
+    } else {
+      return null;
+    }
   }
 }

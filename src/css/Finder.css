@@ -79,29 +79,6 @@ body {
   margin-left: 5px;
   margin-top: 5px;
 }
-.context-menu {
-  position: fixed;
-  display: flex;
-  flex-flow: column;
-  min-width: 180px;
-  border: 2px solid #999;
-  background-color: #fff;
-  box-shadow: 1px 2px 8px rgba(0, 0, 0, .5);
-  z-index: 9999;
-}
-.context-menu-item {
-  flex-basis: 30px;
-  display: flex;
-  align-items: center;
-  border-left: 6px solid #fff;
-  padding-left: 4px;
-  padding-right: 10px;
-  cursor: pointer;
-}
-.context-menu-item:hover {
-  border-left-color: #666;
-  background-color: #ddd;
-}
 .category-editor {
   border: 1px solid #999;
   font-size: 100%;

@@ -25,45 +25,40 @@ export default class TreeViewNode extends React.Component {
   openContextMenu(e){
     let contextMenu = this.props.appState.contextMenu;
 
-    contextMenu.contextMenuItemsComponent = <ContextMenuCategory
-      onRename={this.renameCategory.bind(this)}
-      onAdd={this.addCategory.bind(this)}
-      onDelete={this.deleteCategory.bind(this)}
-      connectedObject={this.props.category}
+    let items = [
+      {type: "item", text: "Rename Category", handler: this.renameCategory.bind(this)},
+      {type: "item", text: "Add Category", handler: this.addCategory.bind(this)},
+      {type: "item", text: "Delete Category", handler: this.deleteCategory.bind(this)}
+    ]
+
+    contextMenu.contextMenuComponent = <ContextMenuCategory
+      items={items}
       position={{left : e.pageX, top : e.pageY}}
     />;
-    /*
-    contextMenu.position = {left : e.pageX, top : e.pageY};
-    contextMenu.connectedObject = this.props.category;
-    contextMenu.actions.onRename = this.renameCategory.bind(this);
-    contextMenu.actions.onAdd = this.addCategory.bind(this);
-    contextMenu.actions.onDelete = this.deleteCategory.bind(this);
-    */
-    contextMenu.isVisible = true;
   }
 
   renameCategory(e){
     e.stopPropagation();
 
-    this.props.appState.contextMenu.isVisible = false;
+    this.props.appState.contextMenu.contextMenuComponent = null;
     this.setState({editCategory : true});
   }
   editorClose(){
     this.setState({editCategory : false});
   }
   addCategory(){
-    console.log("NODE ADD!!!!!!!");
+    this.props.appState.contextMenu.contextMenuComponent = null;
   }
   deleteCategory(){
-    console.log("NODE DELETE!!!!!!!");
+    this.props.appState.contextMenu.contextMenuComponent = null;
     let dlg = this.appState.dialog;
+
     dlg.dialogComponent = <DlgConfirm
-                            onOk={() => console.log("DELETE CONFIRMED")}
-                            onCancel={() => {this.appState.dialog.isVisible = false}}
-                            text="Do you really want to delete the category?"
-                          />
+      onOk={() => {console.log("DELETE CONFIRMED"); this.props.appState.dialog.dialogComponent = null;}}
+      onCancel={() => {this.props.appState.dialog.dialogComponent = null}}
+      text="Do you really want to delete the category?"
+    />
     dlg.buttonsOnly = true;
-    dlg.isVisible = true;
 
   }
 

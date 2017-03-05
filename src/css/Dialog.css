@@ -29,7 +29,7 @@
   display: flex;
   background-color: #666;
 }
-.dlg-confirm-button-box > button {
+.dlg-confirm-button {
   flex: 1;
   background-color: #666;
   border: 0;
@@ -37,7 +37,15 @@
   cursor: pointer;
   font-size: 100%;
 }
+.dlg-confirm-button:hover{
+  background-color: #555;
+  color: #D0994B;
+}
 .dlg-confirm-button-separator {
   flex-basis: 2px;
   background-color: #333;
+}
+.dlg-confirm-button-sel {
+  background-color: #555;
+  color: #D0994B;
 }

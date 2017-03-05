@@ -15,6 +15,12 @@ export default class ListViewCategory extends React.Component {
     this.state = {editCategory: false};
   }
 
+  componentDidUpdate(){
+    console.log("ListViewCategory clicked: " + this.props.clicked);
+    if (this.props.clicked)
+      this.selectCategory();
+  }
+
   selectCategory() {
     this.props.appState.selectCategory(this.props.category);
   }
@@ -24,30 +30,39 @@ export default class ListViewCategory extends React.Component {
 
     let contextMenu = this.props.appState.contextMenu;
 
-    contextMenu.contextMenuItemsComponent = <ContextMenuCategory
-      onRename={this.renameCategory.bind(this)}
-      onAdd={this.addCategory.bind(this)}
-      onDelete={this.deleteCategory.bind(this)}
-      connectedObject={this.props.category}
+    let items = [
+      {type: "item", text: "Rename Category", handler: this.renameCategory.bind(this)},
+      {type: "item", text: "Add Category", handler: this.addCategory.bind(this)},
+      {type: "item", text: "Delete Category", handler: this.deleteCategory.bind(this)}
+    ]
+
+    contextMenu.contextMenuComponent = <ContextMenuCategory
+      items={items}
       position={{left : e.pageX, top : e.pageY}}
     />;
-    contextMenu.isVisible = true;
+
   }
 
   renameCategory(e){
     e.stopPropagation();
 
-    this.props.appState.contextMenu.isVisible = false;
+    this.props.appState.contextMenu.contextMenuComponent = null;
     this.setState({editCategory : true});
   }
   addCategory(e){
-
+    this.props.appState.contextMenu.contextMenuComponent = null;
   }
   deleteCategory(e){
+    this.props.appState.contextMenu.contextMenuComponent = null;
+
     let dlg = this.props.appState.dialog;
     dlg.dialogComponent = <DlgConfirm
-      onOk={() => {console.log("DELETE CONFIRMED"); this.props.appState.dialog.isVisible = false;}}
-      onCancel={() => {this.props.appState.dialog.isVisible = false}}
+      onOk={() => {
+          console.log("DELETE CONFIRMED");
+          this.props.appState.dialog.dialogComponent = null;
+        }
+      }
+      onCancel={() => {this.props.appState.dialog.dialogComponent = null;}}
       text="Do you really want to delete the category?"
     />
     dlg.buttonsOnly = true;
@@ -70,7 +85,12 @@ export default class ListViewCategory extends React.Component {
               />
 
     return(
-      <div className="lv-item lv-category" onDoubleClick={this.selectCategory.bind(this)} onContextMenu={this.openContextMenu.bind(this)}>
+      <div
+        className={this.props.selected ? "lv-item lv-category lv-item-selected" : "lv-item lv-category"}
+        onMouseOver={this.props.onSelect}
+        onDoubleClick={this.selectCategory.bind(this)}
+        onContextMenu={this.openContextMenu.bind(this)}
+      >
         <span className="lv-iconbox">
           {IconStore["category"]}
         </span>

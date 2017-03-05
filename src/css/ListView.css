@@ -9,6 +9,9 @@
   border-bottom: solid #ccc 1px;
   cursor: pointer;
 }
+.lv-item-selected {
+  background-color: #aaa;
+}
 .lv-category {
   align-items: center;
   min-height: 30px;

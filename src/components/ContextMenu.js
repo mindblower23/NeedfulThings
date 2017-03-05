@@ -8,21 +8,26 @@ export default class ContextMenu extends React.Component {
 
   render(){
 
-    let storeContextMenu = this.props.appState.contextMenu;
+    let appContextMenu = this.props.appState.contextMenu;
 
-    console.log("ContextMenu: " + JSON.stringify(storeContextMenu));
+    if (appContextMenu.contextMenuComponent !== null){
 
-    if (storeContextMenu.isVisible){
-
+      /* clicking somewhere around the context menu will close it */
       this.props.appState.finder.onClick = (e) => {
-        console.log("EVENT TARGET" + e.target.className);
-        storeContextMenu.isVisible = false;
+        console.log("FINDER CLICK FIRED!");
+        appContextMenu.contextMenuComponent = null;
         this.props.appState.finder.onClick = null;
       };
 
-      return(
-        this.props.appState.contextMenu.contextMenuItemsComponent
+      /* clone the component and add prop 'appState' for enabling the esc for closing */
+      let contextMenuComponent = React.cloneElement(
+        appContextMenu.contextMenuComponent,
+        {appState: this.props.appState}
       )
+
+      return(
+        contextMenuComponent
+      );
 
     } else
       return null;
