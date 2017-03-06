@@ -19,16 +19,18 @@ export default class ListView extends React.Component {
 
   componentWillMount(){
     /* set key handler to document */
-    document.addEventListener("keydown", this.handleKeys);
+    //document.addEventListener("keydown", this.handleKeys);
+    this.props.appState.shortCutPool.addHandler("ListView", this.handleKeys);
   }
 
   componentWillUnmount(){
     /* remove key handler from document */
-    document.removeEventListener("keydown", this.handleKeys);
+    //document.removeEventListener("keydown", this.handleKeys);
+    this.props.appState.shortCutPool.removeHandler("ListView");
   }
 
   setSelected(itemId){
-    this.setState({selectedItem: itemId, clicked: false});
+    this.setState({selectedItem: itemId, clicked: false, rightClicked: false});
   }
 
   handleKeys = (e) => {
@@ -38,8 +40,14 @@ export default class ListView extends React.Component {
       this.setState({selectedItem: (state.selectedItem < this.itemCount - 1) ? (state.selectedItem + 1) : 0});
     else if (e.keyCode === 38)
       this.setState({selectedItem: (state.selectedItem > 0) ? (state.selectedItem - 1) : this.itemCount - 1});
-    else if (e.keyCode === 13){
+    else if(e.ctrlKey && e.keyCode === 13)
+      this.setState({rightClicked: true});
+    else if (e.keyCode === 13)
       this.setState({clicked: true});
+    else if(e.keyCode === 8){
+      e.preventDefault();
+      if (this.props.appState.categoriesPath.length > 1)
+        this.props.appState.selectCategory(this.props.appState.categoriesPath[this.props.appState.categoriesPath.length - 2]);
     }
   };
 
@@ -50,7 +58,9 @@ export default class ListView extends React.Component {
     let itemIdStart = 0;
     let clicked = this.state.clicked;
     this.state.clicked = false;
-    console.log("clicked: " + clicked + " - " + this.state.clicked);
+
+    let rightClicked = this.state.rightClicked;
+    this.state.rightClicked = false;
 
     let selectedCategory = this.props.appState.listViewStore.selectedCategory;
 
@@ -68,6 +78,7 @@ export default class ListView extends React.Component {
           selected={(this.state.selectedItem === i)}
           onSelect={() => this.setSelected(i)}
           clicked={(this.state.selectedItem === i) ? clicked : false}
+          rightClicked={(this.state.selectedItem === i) ? rightClicked : false}
           appState={this.props.appState}
           category={item} />
       ));
@@ -87,8 +98,6 @@ export default class ListView extends React.Component {
       ));
       this.itemCount += selectedCategory.things.length;
     }
-    console.log("The item counts: " + this.itemCount);
-
 
     return(
       <div className="lv-container">

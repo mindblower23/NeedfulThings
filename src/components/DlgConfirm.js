@@ -7,25 +7,24 @@ export default class DlgConfirm extends Component {
     this.state = {selectedButton: "Cancel"};
   }
 
-  componentDidMount(){
+  componentWillMount(){
+    this.props.appState.shortCutPool.addHandler("DlgConfirm", this.handleKeys, true);
+  }
+  componentWillUnmount(){
+    this.props.appState.shortCutPool.removeHandler("DlgConfirm");
+  }
 
-    let dlgEnter = (e) => {
-      if(e.keyCode === 37 || e.keyCode === 39)
-        this.setState({selectedButton: (this.state.selectedButton === "Ok") ? "Cancel" : "Ok"});
-      else if (e.keyCode === 13){
-        document.removeEventListener("keydown", dlgEnter);
-        if(this.state.selectedButton === "Ok")
-          this.props.onOk(e);
-        else
-          this.props.onCancel(e);
-      }
-      else if (e.keyCode === 27){
-        document.removeEventListener("keydown", dlgEnter);
+  handleKeys = (e) => {
+    if(e.keyCode === 37 || e.keyCode === 39)
+      this.setState({selectedButton: (this.state.selectedButton === "Ok") ? "Cancel" : "Ok"});
+    else if (e.keyCode === 13){
+      if(this.state.selectedButton === "Ok")
+        this.props.onOk(e);
+      else
         this.props.onCancel(e);
-      }
     }
-
-    document.addEventListener("keydown", dlgEnter);
+    else if (e.keyCode === 27)
+      this.props.onCancel(e);
   }
 
   render(){

@@ -1,11 +1,13 @@
 import { computed, observable, action } from "mobx";
 import React from "react";
 
-import ThingEditor from "./components/ThingEditor";
+import ShortCutPool from "./components/ShortCutPool";
 
 import serverActions from "./ServerActions";
 
 class AppState {
+  shortCutPool = new ShortCutPool();
+
   @observable finder = {onClick: null, onContextMenu: null};
   @observable categories = [];
   @observable listViewStore = {selectedCategory: {}};

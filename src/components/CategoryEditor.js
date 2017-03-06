@@ -6,12 +6,10 @@ export default class CategoryEditor extends Component {
 
   constructor(){
     super();
-    this.state = {value: "hhh"};
+    this.state = {value: null};
   }
 
-  componentDidMount(){
-
-    console.log("CE: " + this.props.category.name);
+  componentWillMount(){
     this.setState({value: this.props.category.name});
 
     this.props.appState.finder.onClick = (e) => {
@@ -24,9 +22,15 @@ export default class CategoryEditor extends Component {
       this.props.appState.finder.onClick = null;
       this.props.appState.finder.onContextMenu = null;
     };
+
+    this.props.appState.shortCutPool.addHandler("CategoryEditor", this.handleKeys, true);
   }
 
-  click(e){
+  componentWillUnmount(){
+    this.props.appState.shortCutPool.removeHandler("CategoryEditor");
+  }
+
+  preventClicks(e){
     console.log("CategoryEditor reports Click!");
     e.stopPropagation();
     e.preventDefault();
@@ -38,7 +42,7 @@ export default class CategoryEditor extends Component {
 
   }
 
-  keyPress(e){
+  handleKeys = (e) => {
     if(e.keyCode === 13){
       this.props.category.name = e.target.value;
       this.props.appState.finder.onClick(e);
@@ -52,8 +56,8 @@ export default class CategoryEditor extends Component {
       <input
         className="category-editor"
         autoFocus
-        onKeyDown={this.keyPress.bind(this)}
-        onClick={this.click.bind(this)}
+        onClick={this.preventClicks.bind(this)}
+        onDoubleClick={this.preventClicks.bind(this)}
         value={this.state.value}
         onChange={this.handleChange.bind(this)}
       />

@@ -16,9 +16,15 @@ export default class Dialog extends React.Component{
   render(){
 
     if (this.props.appState.dialog.dialogComponent !== null){
+
+      let DlgComponent = React.cloneElement(
+        this.props.appState.dialog.dialogComponent,
+        {appState: this.props.appState}
+      )
+
       return(
         <div className="m-backdrop" onClick={this.close.bind(this)} >
-          {this.props.appState.dialog.dialogComponent}
+          {DlgComponent}
         </div>
       );
     } else {

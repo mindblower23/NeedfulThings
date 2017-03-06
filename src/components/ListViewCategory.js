@@ -15,10 +15,11 @@ export default class ListViewCategory extends React.Component {
     this.state = {editCategory: false};
   }
 
-  componentDidUpdate(){
-    console.log("ListViewCategory clicked: " + this.props.clicked);
-    if (this.props.clicked)
+  componentWillReceiveProps(nextProps){
+    if (nextProps.clicked)
       this.selectCategory();
+    else if (nextProps.rightClicked)
+      this.openContextMenu({preventDefault: () => false, pageX: 100, pageY: 100});
   }
 
   selectCategory() {
@@ -44,8 +45,6 @@ export default class ListViewCategory extends React.Component {
   }
 
   renameCategory(e){
-    e.stopPropagation();
-
     this.props.appState.contextMenu.contextMenuComponent = null;
     this.setState({editCategory : true});
   }
