@@ -1,8 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
 
-import ContextMenuCategory from "./ContextMenuCategory";
-
 @observer
 export default class ContextMenu extends React.Component {
 
@@ -14,7 +12,6 @@ export default class ContextMenu extends React.Component {
 
       /* clicking somewhere around the context menu will close it */
       this.props.appState.finder.onClick = (e) => {
-        console.log("FINDER CLICK FIRED!");
         appContextMenu.contextMenuComponent = null;
         this.props.appState.finder.onClick = null;
       };

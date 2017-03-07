@@ -10,17 +10,11 @@ export default class ContextMenuCategory extends React.Component {
   }
 
   componentWillMount(){
-    /* set key handler to document */
-    //document.addEventListener("keydown", this.handleKeys);
     this.props.appState.shortCutPool.addHandler("ContextMenu", this.handleKeys, true);
-    console.log("ContextMenuCategory willMount!");
   }
 
   componentWillUnmount(){
-    /* remove key handler from document */
-    //document.removeEventListener("keydown", this.handleKeys);
     this.props.appState.shortCutPool.removeHandler("ContextMenu");
-    console.log("ContextMenuCategory willUnMount!");
   }
 
   handleKeys = (e) => {
