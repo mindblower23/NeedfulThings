@@ -10,9 +10,6 @@ import PathView from "./PathView";
 import Dialog from "./Dialog";
 import ContextMenu from "./ContextMenu";
 
-import Killme from "./Killme";
-
-
 export default class Finder extends React.Component {
 
   appState = null;
@@ -23,18 +20,14 @@ export default class Finder extends React.Component {
   }
 
   click(e){
-    //call the event handler function provided by the Store
-    if(this.appState.finder.onClick !== null){
+    //call the event handler function provided by appState
+    if(this.appState.finder.onClick !== null)
       this.appState.finder.onClick(e);
-      console.log("Finder received a click!");
-    }
   }
   rightClick(e){
-    //call the event handler function provided by the Store
-    if(this.appState.finder.onContextMenu !== null){
+    //call the event handler function provided by appState
+    if(this.appState.finder.onContextMenu !== null)
       this.appState.finder.onContextMenu(e);
-      console.log("Finder received a click!");
-    }
   }
 
   resizeTreeView(ev){

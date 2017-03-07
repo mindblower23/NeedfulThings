@@ -3,6 +3,8 @@ import { observer } from "mobx-react";
 
 import IconStore from "./IconStore";
 
+import ThingEditor from "./ThingEditor";
+
 @observer
 export default class ListViewThing extends React.Component {
 
@@ -12,8 +14,7 @@ export default class ListViewThing extends React.Component {
   }
 
   editThing(){
-    console.log("editThing !!!!!!!");
-    this.props.appState.dialog.dialogTag = "ThingEditor";
+    this.props.appState.dialog.dialogComponent = <ThingEditor />;
     this.props.appState.dialog.isOpen = true;
   }
 

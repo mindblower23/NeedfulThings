@@ -16,7 +16,7 @@ export default class ContextMenu extends React.Component {
         this.props.appState.finder.onClick = null;
       };
 
-      /* clone the component and add prop 'appState' for enabling the esc for closing */
+      /* clone the component and add prop 'appState' (eg. for enabling esc key for closing) */
       let contextMenuComponent = React.cloneElement(
         appContextMenu.contextMenuComponent,
         {appState: this.props.appState}

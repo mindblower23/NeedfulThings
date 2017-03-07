@@ -10,9 +10,9 @@ class AppState {
 
   @observable finder = {onClick: null, onContextMenu: null};
   @observable categories = [];
-  @observable listViewStore = {selectedCategory: {}};
   @observable categoriesPath = [];
-  @observable thingEditor = {isOpen: true};
+  @observable listViewStore = {selectedCategory: {}};
+  
 
   @observable dialog = {
               dialogComponent: null,
