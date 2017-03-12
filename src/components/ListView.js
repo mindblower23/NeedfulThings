@@ -30,6 +30,7 @@ export default class ListView extends React.Component {
   }
 
   setSelected(itemId){
+    console.log("setSelected fired!");
     this.setState({selectedItem: itemId, clicked: false, rightClicked: false});
   }
 

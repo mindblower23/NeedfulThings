@@ -12,8 +12,6 @@ class AppState {
   @observable categories = [];
   @observable categoriesPath = [];
   @observable listViewStore = {selectedCategory: {}};
-  
-
   @observable dialog = {
               dialogComponent: null,
               buttonsOnly: false
@@ -46,6 +44,9 @@ class AppState {
   */
   @action selectCategory(selectedCategory){
     serverActions.act("getThings", {categories_id: selectedCategory.id}, (data) => {
+
+      /* Add editTextActive to indicate if the things text is currently edited in draft editor */
+      data.map((item) => {item.editTextActive = false});
 
       selectedCategory.things = data;
 

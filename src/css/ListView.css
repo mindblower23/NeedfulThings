@@ -1,7 +1,7 @@
 .lv-container {
   flex: 1;
   flex-basis: 100%;
-  background-color: #e0e0e0;
+  background-color: #eee;
   user-select: none;
 }
 .lv-item {
