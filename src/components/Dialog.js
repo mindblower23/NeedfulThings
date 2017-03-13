@@ -3,8 +3,6 @@ import { observer } from "mobx-react";
 
 import "../css/Dialog.css";
 
-import ThingEditor from "./ThingEditor";
-
 @observer
 export default class Dialog extends React.Component{
 
