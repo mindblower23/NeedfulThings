@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Editor, EditorState} from 'draft-js';
+import {Editor, EditorState, RichUtils} from 'draft-js';
 
 import iconStore from "./IconStore";
 
@@ -26,15 +26,27 @@ export default class ThingTextEditor extends Component {
   }
 
   onChange = (editorState) => {
+    console.log("onChange called!");
     this.setState({editorState});
+    //this.refs.editor.focus();
   }
+
+  setBold = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, "myStyle"));
+  }
+
+  focus = () => this.refs.editor.focus();
+
+  myStyleMap = {'myStyle': {backgroundColor: '#b00000'}};
 
   render(){
 
     return(
       <div className="lv-text-editor">
         <div className="editor-icon-bar">
-          <div className="editor-icon-box">
+          <div className="editor-icon-box" onMouseDown={this.setBold}>
             {iconStore.editorIconBold}
           </div>
           <div className="editor-icon-box">
@@ -45,7 +57,7 @@ export default class ThingTextEditor extends Component {
           </div>
         </div>
         <div className="editor-container">
-          <Editor ref="editor" editorState={this.state.editorState} onChange={this.onChange} />
+          <Editor ref="editor" customStyleMap={this.myStyleMap} editorState={this.state.editorState} onChange={this.onChange} />
         </div>
       </div>
     );
