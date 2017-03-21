@@ -13,11 +13,6 @@ export default class TreeViewNode extends React.Component {
 
   appStore = null;
 
-  constructor(){
-    super();
-    this.state = {editCategory : false};
-  }
-
   componentWillMount(){
     this.appState = this.props.appState;
   }
@@ -41,13 +36,14 @@ export default class TreeViewNode extends React.Component {
     e.stopPropagation();
 
     this.props.appState.contextMenu.contextMenuComponent = null;
-    this.setState({editCategory : true});
+    this.props.category.isEditTree = true;
   }
   editorClose(){
-    this.setState({editCategory : false});
+    this.props.category.isEditTree = false;
   }
   addCategory(){
     this.props.appState.contextMenu.contextMenuComponent = null;
+    this.props.appState.addCategory(this.props.category, 1);
   }
   deleteCategory(){
     this.props.appState.contextMenu.contextMenuComponent = null;
@@ -91,7 +87,7 @@ export default class TreeViewNode extends React.Component {
     }
 
     let item = category.name;
-    if(this.state.editCategory)
+    if(this.props.category.isEditTree)
       item =  <CategoryEditor
                 appState={this.props.appState}
                 category={this.props.category}

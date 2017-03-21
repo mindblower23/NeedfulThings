@@ -39,12 +39,12 @@ export default class CategoryEditor extends Component {
   handleChange(e){
     console.log("CategoryEditor handleChange");
     this.setState({value: e.target.value});
-
   }
 
   handleKeys = (e) => {
     if(e.keyCode === 13){
       this.props.category.name = e.target.value;
+      this.props.appState.saveNewCategory(this.props.category);
       this.props.appState.finder.onClick(e);
     } else if (e.keyCode === 27)
       this.props.appState.finder.onClick(e);
